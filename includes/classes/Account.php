@@ -9,6 +9,19 @@
       $this->errorArray = array();
     }
 
+    public function login($un, $pwd) {
+      $pwd = md5($pwd);
+      $query = mysqli_query($this->con, "SELECT * FROM user WHERE username='$un' AND password='$pwd'");
+
+      if(mysqli_num_rows($query) == 1) {
+        return true;
+      }
+      else {
+        array_push($this->errorArray, Constants::$loginFailed);
+        return false;
+      }
+    }
+
     public function register($un, $fn, $ln, $em, $em2, $pwd, $pwd2) {
       // Calling validation functions
       $this->validateUsername($un);
