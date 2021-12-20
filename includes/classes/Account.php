@@ -14,6 +14,20 @@
       $this->validateLastName($ln);
       $this->validateEmails($em, $em2);
       $this->validatePasswords($pwd, $pwd2);
+
+      if(empty($this->errorArray)) {
+        // Insert into DB
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function getError($error) {
+      if(!in_array($error, $this->errorArray)) {
+        $error = "";
+      }
+      return "<span class='errorMessage'>$error</span>";
     }
 
     private function validateUsername($un) {
@@ -27,14 +41,14 @@
     
     private function validateFirstName($fn) {
       if(strlen($fn)<2 || strlen($fn)>25) {
-        array_push($this->errorArray, "Your username must be between 2 and 25 characters");
+        array_push($this->errorArray, "Your first name must be between 2 and 25 characters");
         return;
       }
     }
     
     private function validateLastName($ln) {
       if(strlen($ln)<3 || strlen($ln)>25) {
-        array_push($this->errorArray, "Your username must be between 2 and 25 characters");
+        array_push($this->errorArray, "Your last name must be between 2 and 25 characters");
         return;
       }
     }
@@ -59,12 +73,12 @@
         return;
       }
 
-      if(preg_match('/[^A-Za-z0-9]', $pwd)) {
+      if(preg_match('/[^A-Za-z0-9]/', $pwd)) {
         array_push($this->errorArray, "Your password can only contain numbers and letters");
         return;
       }
 
-      if(strlen($pwd)<5 || strlen($un)>30) {
+      if(strlen($pwd)<5 || strlen($pwd)>30) {
         array_push($this->errorArray, "Your password must be between 5 and 30 characters");
         return;
       }
