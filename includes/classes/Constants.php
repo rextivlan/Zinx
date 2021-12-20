@@ -11,5 +11,6 @@
     public static $usernameCharacters = "Your username must be between 3 and 25 characters";  
     public static $usernameTaken = "This username already exists";  
 
+    public static $loginFailed = "Your username or password was incorrect"; 
 }
 ?>
